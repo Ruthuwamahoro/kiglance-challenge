@@ -15,3 +15,15 @@ export interface ProductTagsInterface {
     loading: boolean;
     error: string | null;
 }
+
+export interface UserIntroFormProps {
+    onBack: () => void;
+    onSkip: () => void;
+    onSubmit: (data: UserIntroData) => void;
+  }
+  
+export interface UserIntroData {
+headline: string;
+jobTitle: string;
+location: string;
+}

@@ -40,8 +40,9 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ open, onClose }) => {
   const handleNext = () => setStep(step + 1);
   const handleBack = () => setStep(step - 1);
   
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+  const handleUserInfoSubmit = (data: typeof userInfo) => {
+    setUserInfo(data);
+    handleNext();
   };
 
   const handleInterestToggle = (interest: string) => {
@@ -71,8 +72,8 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ open, onClose }) => {
 
   const renderSuccessDialog = () => (
     <div className="text-center py-8">
-      <h2 className="text-2xl font-semibold mb-2">You&apos;re all set!</h2>
-      <p className="text-gray-600 mb-6">Start stackin&apos;, reviewin&apos;, discussin&apos; and more... 🙌</p>
+      <h2 className="text-2xl font-semibold mb-2">You're all set!</h2>
+      <p className="text-gray-600 mb-6">Start stackin', reviewin', discussin' and more... 🙌</p>
       <div className="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto">
         <FaCheck className="text-purple-500" size={32} />
       </div>
@@ -105,10 +106,16 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ open, onClose }) => {
             onSave={handleSave}
           />
         )}
-        {step === 8 && <UserIntroductionForm userInfo={userInfo} handleInputChange={handleInputChange} />}
+        {step === 8 && (
+          <UserIntroductionForm
+            onBack={handleBack}
+            onSkip={() => setStep(9)}
+            onSubmit={handleUserInfoSubmit}
+          />
+        )}
         {step === 9 && renderSuccessDialog()}
 
-        {step > 1 && step < 9 && (
+        {step > 1 && step < 8 && (
           <div className="flex justify-between items-center px-6 py-4 bg-gray-50 rounded-b-lg">
             <button onClick={handleBack} className="text-purple-500 hover:underline">
               Back

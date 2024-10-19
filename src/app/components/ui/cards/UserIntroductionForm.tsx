@@ -1,10 +1,10 @@
 import { Avatar } from '@mui/material';
-import { deepOrange, deepPurple } from '@mui/material/colors';
+import { deepPurple } from '@mui/material/colors';
 import React, { useState, useEffect } from 'react';
-import { IoClose } from 'react-icons/io5';
 
 interface UserIntroFormProps {
-  onClose: () => void;
+  onBack: () => void;
+  onSkip: () => void;
   onSubmit: (data: UserIntroData) => void;
 }
 
@@ -14,7 +14,7 @@ interface UserIntroData {
   location: string;
 }
 
-const UserIntroductionForm: React.FC<UserIntroFormProps> = ({ onClose, onSubmit }) => {
+const UserIntroductionForm: React.FC<UserIntroFormProps> = ({ onBack, onSkip, onSubmit }) => {
   const [formData, setFormData] = useState<UserIntroData>({
     headline: '',
     jobTitle: '',
@@ -69,12 +69,11 @@ const UserIntroductionForm: React.FC<UserIntroFormProps> = ({ onClose, onSubmit 
   return (
     <div className="flex flex-col items-center">
       <div className="w-full max-w-md">
-        
         <div className="text-center mb-6">
           <h2 className="text-xl font-semibold">Introduce yourself to the community</h2>
           <p className="text-gray-600 mt-2">Let members learn more about you.</p>
           <div className="mt-4 flex items-center justify-center">
-            <Avatar sx={{  bgcolor: deepPurple[500] }}>N</Avatar>
+            <Avatar sx={{ bgcolor: deepPurple[500] }}>N</Avatar>
             <p className='mx-3'>Jane Doe</p>
           </div>
         </div>
@@ -122,9 +121,9 @@ const UserIntroductionForm: React.FC<UserIntroFormProps> = ({ onClose, onSubmit 
           </div>
 
           <div className="flex justify-between">
-            <button type="button" className="text-purple-500 hover:underline">Back</button>
+            <button type="button" onClick={onBack} className="text-purple-500 hover:underline">Back</button>
             <div>
-              <button type="button" className="text-purple-500 hover:underline mr-4">Skip</button>
+              <button type="button" onClick={onSkip} className="text-purple-500 hover:underline mr-4">Skip</button>
               <button 
                 type="submit"
                 className={`px-4 py-2 bg-purple-500 text-white rounded-md ${isSubmitDisabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-purple-600'}`}
