@@ -6,7 +6,6 @@ import MainResponsabilities from '@/app/components/ui/cards/MainResponsabilities
 import CompanySize from '@/app/components/ui/cards/CompanySize';
 import TargetAudience from '@/app/components/ui/cards/TargetAudience';
 import Products from '@/app/components/ui/cards/Products';
-// import Step6 from '@/app/components/ui/cards/ProfilePhotoSelector';
 import UserIntroductionForm from '@/app/components/ui/cards/UserIntroductionForm';
 import ProductManage from './cards/ProductsTags';
 import ProfilePhotoSelector from '@/app/components/ui/cards/ProfilePhotoSelector';
@@ -24,7 +23,6 @@ interface Product {
 const OnboardingModal: React.FC<OnboardingModalProps> = ({ open, onClose }) => {
   const [step, setStep] = useState<number>(1);
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
-  // const [selectedColor, setSelectedColor] = useState<string>('#8D57FA');
   const [isOpen, setIsOpen] = useState(false);
   const [selectedResponsibility, setSelectedResponsibility] = useState<string>('');
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);

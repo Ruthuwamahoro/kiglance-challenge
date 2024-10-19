@@ -15,3 +15,7 @@ export interface ProductTagsInterface {
     loading: boolean;
     error: string | null;
 }
+export interface ColorOption {
+    name: string;
+    hex: string;
+  }

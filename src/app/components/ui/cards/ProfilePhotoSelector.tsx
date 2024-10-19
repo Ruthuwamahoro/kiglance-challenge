@@ -1,10 +1,6 @@
+import { colorOptions } from '@/db';
 import React, { useState, useRef } from 'react';
 import { IoClose } from 'react-icons/io5';
-
-interface ColorOption {
-  name: string;
-  hex: string;
-}
 
 interface ProfilePhotoSelectorProps {
   onClose: () => void;
@@ -12,19 +8,10 @@ interface ProfilePhotoSelectorProps {
 }
 
 const ProfilePhotoSelector: React.FC<ProfilePhotoSelectorProps> = ({ onClose, onSave }) => {
-  const [selectedColor, setSelectedColor] = useState<string>('#8B5CF6');
+  const [selectedColor, setSelectedColor] = useState<string>(colorOptions[0].hex);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const colorOptions: ColorOption[] = [
-    { name: 'Purple', hex: '#8B5CF6' },
-    { name: 'Gray', hex: '#9CA3AF' },
-    { name: 'Blue', hex: '#3B82F6' },
-    { name: 'Red', hex: '#EF4444' },
-    { name: 'Green', hex: '#10B981' },
-    { name: 'Yellow', hex: '#F59E0B' },
-  ];
 
   const handleColorSelect = (color: string) => {
     setSelectedColor(color);
@@ -111,19 +98,6 @@ const ProfilePhotoSelector: React.FC<ProfilePhotoSelectorProps> = ({ onClose, on
           <div className="flex items-center justify-center w-24 h-24 rounded-full mx-auto" style={{ backgroundColor: selectedColor }}>
             <span className="text-4xl text-white">J</span>
           </div>
-
-          {/* <div className="flex justify-between mt-6">
-            <button className="text-purple-500 hover:underline">Back</button>
-            <div>
-              <button className="text-purple-500 hover:underline mr-4">Skip</button>
-              <button 
-                className="px-4 py-2 bg-purple-500 text-white rounded-md"
-                onClick={handleSave}
-              >
-                Next
-              </button>
-            </div>
-          </div> */}
         </>
       )}
     </div>
