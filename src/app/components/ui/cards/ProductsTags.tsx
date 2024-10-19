@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaSearch } from "react-icons/fa";
 import { CiCirclePlus } from "react-icons/ci";
@@ -12,6 +12,23 @@ interface ProductManageProps {
   selectedProducts: Product[];
   setSelectedProducts: React.Dispatch<React.SetStateAction<Product[]>>;
 }
+
+const Loader: React.FC = () => (
+  <div className="text-center">Loading products...</div>
+);
+
+const SkeletonLoader: React.FC = () => {
+  return (
+    <div className="space-y-2 animate-pulse">
+      {[...Array(5)].map((_, index) => (
+        <div key={index} className="flex items-center p-3 border rounded-md">
+          <div className="w-8 h-8 bg-gray-200 rounded-full mr-3"></div>
+          <div className="flex-1 h-4 bg-gray-200 rounded"></div>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 const ProductManage: React.FC<ProductManageProps> = ({ 
   selectedProducts, 
@@ -42,7 +59,6 @@ const ProductManage: React.FC<ProductManageProps> = ({
     setSelectedProducts(prev => prev.filter(p => p.id !== product.id));
   };
 
-  if (loading) return <div className="text-center">Loading products...</div>;
   if (error) return <div className="text-center text-red-500">Error: {error}</div>;
 
   return (
@@ -91,44 +107,50 @@ const ProductManage: React.FC<ProductManageProps> = ({
         </div>
       )}
 
-      <div className="space-y-2 max-h-60 overflow-y-auto">
-        {filteredProducts.map(product => {
-          const isSelected = selectedProducts.some(p => p.id === product.id);
-          return (
-            <div
-              key={product.id}
-              className={`flex items-center justify-between p-3 border rounded-md cursor-pointer transition-all duration-200 ${
-                isSelected 
-                  ? 'bg-purple-50 border-purple-200' 
-                  : 'hover:bg-gray-50 hover:border-gray-300'
-              }`}
-              onClick={() => toggleProduct(product)}
-              role="button"
-              tabIndex={0}
-              aria-pressed={isSelected}
-            >
-              <div className="flex items-center flex-1">
-                <span 
-                  className="mr-3 text-xl transition-transform duration-200 hover:scale-110" 
-                  role="img" 
-                  aria-label="product icon"
+      <Suspense fallback={<Loader />}>
+        {loading ? (
+          <SkeletonLoader />
+        ) : (
+          <div className="space-y-2 max-h-60 overflow-y-auto">
+            {filteredProducts.map(product => {
+              const isSelected = selectedProducts.some(p => p.id === product.id);
+              return (
+                <div
+                  key={product.id}
+                  className={`flex items-center justify-between p-3 border rounded-md cursor-pointer transition-all duration-200 ${
+                    isSelected 
+                      ? 'bg-purple-50 border-purple-200' 
+                      : 'hover:bg-gray-50 hover:border-gray-300'
+                  }`}
+                  onClick={() => toggleProduct(product)}
+                  role="button"
+                  tabIndex={0}
+                  aria-pressed={isSelected}
                 >
-                  {getProductIcon(product.id)}
-                </span>
-                <span className={`font-medium ${isSelected ? 'text-purple-900' : 'text-gray-800'}`}>
-                  {product.name}
-                </span>
-              </div>
-              {!isSelected && (
-                <CiCirclePlus 
-                  className="h-6 w-6 text-gray-400 hover:text-purple-500 transition-colors duration-200"
-                  aria-label="Select product"
-                />
-              )}
-            </div>
-          );
-        })}
-      </div>
+                  <div className="flex items-center flex-1">
+                    <span 
+                      className="mr-3 text-xl transition-transform duration-200 hover:scale-110" 
+                      role="img" 
+                      aria-label="product icon"
+                    >
+                      {getProductIcon(product.id)}
+                    </span>
+                    <span className={`font-medium ${isSelected ? 'text-purple-900' : 'text-gray-800'}`}>
+                      {product.name}
+                    </span>
+                  </div>
+                  {!isSelected && (
+                    <CiCirclePlus 
+                      className="h-6 w-6 text-gray-400 hover:text-purple-500 transition-colors duration-200"
+                      aria-label="Select product"
+                    />
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </Suspense>
     </div>
   );
 };

@@ -24,7 +24,7 @@ const MainResponsabilities: React.FC<Step3Props> = ({ selectedResponsibility, se
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-4">What is your main work responsibility?</h2>
+      <h2 className="text-xl font-semibold mb-4 text-center">What is your main work responsibility?</h2>
       <div className="grid grid-cols-2 gap-4">
         {!success ? (
           <SkeletonLoader/>
