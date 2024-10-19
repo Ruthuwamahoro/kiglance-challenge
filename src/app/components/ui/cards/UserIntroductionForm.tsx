@@ -1,3 +1,5 @@
+import { Avatar } from '@mui/material';
+import { deepOrange, deepPurple } from '@mui/material/colors';
 import React, { useState, useEffect } from 'react';
 import { IoClose } from 'react-icons/io5';
 
@@ -67,18 +69,13 @@ const UserIntroductionForm: React.FC<UserIntroFormProps> = ({ onClose, onSubmit 
   return (
     <div className="flex flex-col items-center">
       <div className="w-full max-w-md">
-        <div className="flex justify-end mb-4">
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
-            <IoClose size={24} />
-          </button>
-        </div>
         
         <div className="text-center mb-6">
           <h2 className="text-xl font-semibold">Introduce yourself to the community</h2>
           <p className="text-gray-600 mt-2">Let members learn more about you.</p>
-          <div className="mt-4">
-            <img src="/api/placeholder/64/64" alt="Jane Doe" className="w-16 h-16 rounded-full mx-auto" />
-            <p className="mt-2">Jane Doe</p>
+          <div className="mt-4 flex items-center justify-center">
+            <Avatar sx={{  bgcolor: deepPurple[500] }}>N</Avatar>
+            <p className='mx-3'>Jane Doe</p>
           </div>
         </div>
 

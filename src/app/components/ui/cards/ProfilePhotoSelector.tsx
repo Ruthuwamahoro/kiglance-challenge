@@ -2,6 +2,7 @@ import { colorOptions } from '@/db';
 import React, { useState, useRef } from 'react';
 import { IoClose } from 'react-icons/io5';
 
+
 interface ProfilePhotoSelectorProps {
   onClose: () => void;
   onSave: (photo: File | null, color: string) => void;
@@ -46,7 +47,8 @@ const ProfilePhotoSelector: React.FC<ProfilePhotoSelectorProps> = ({ onClose, on
 
       {previewUrl ? (
         <div className="mb-4">
-          <img src={previewUrl} alt="Preview" className="w-full h-48 object-cover rounded-lg" />
+          <Image src={previewUrl} alt="Preview" className="w-full h-48 object-cover rounded-lg" />
+
           <div className="flex justify-end mt-2">
             <button 
               className="px-4 py-2 bg-gray-200 rounded-md mr-2"
